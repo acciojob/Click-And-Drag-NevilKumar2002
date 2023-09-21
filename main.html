@@ -36,6 +36,39 @@
 
 <script>
 //Your code goes here 
+	let isDragging = false;
+        let startX, currentX, offsetX;
+        const cubes = document.querySelectorAll('.item');
+
+        cubes.forEach(cube => {
+            cube.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                offsetX = cube.getBoundingClientRect().left;
+                cube.style.transition = 'none';
+            });
+
+            cube.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                currentX = e.clientX;
+                const newPosition = currentX - startX + offsetX;
+                cube.style.transform = `translateX(${newPosition}px)`;
+            });
+
+            cube.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                cube.style.transition = 'transform 0.3s ease-out';
+                cube.style.transform = `translateX(0px)`;
+            });
+
+            cube.addEventListener('mouseleave', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                cube.style.transition = 'transform 0.3s ease-out';
+                cube.style.transform = `translateX(0px)`;
+            });
+        });
 </script>
 
   </body>
